@@ -49,9 +49,10 @@ def load_and_save(args):
 
     if check_annotations(dataset_dir, annotations_file):
         if os.path.isdir(output_dir):
-            logging.info('Deleting previously found %s output directory' % output_dir)
-            os.rmdir(output_dir)
-        os.mkdir(output_dir)
+            logging.warning('\'%s\' output directory already exists' % output_dir)
+        else:
+            logging.debug('Creating output directory \'%s\'' % output_dir)
+            os.mkdir(output_dir)
 
         metadata = wd.register_dataset(dataset_dir, annotations_file)
         configuration = wd.load_model(weights_dir)
